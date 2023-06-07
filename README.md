@@ -14,7 +14,7 @@
 
 ### Built With
 * [Laravel](https://laravel.com/)
-* [PHP] - v8.1
+* [PHP](https://www.php.net/) - v8.1
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
