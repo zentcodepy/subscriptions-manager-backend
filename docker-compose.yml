@@ -6,7 +6,7 @@ services:
     app:
         build:
             args:
-                user: seba
+                user: zentcode
                 uid: 1000
             context: ./
             dockerfile: Dockerfile
@@ -32,7 +32,9 @@ services:
             SERVICE_TAGS: dev
             SERVICE_NAME: mysql
         volumes:
-            - ./docker-compose/mysql:/docker-entrypoint-initdb.d
+            - ./data/mysql:/var/lib/mysql
+        ports:
+            - 8001:3306
         networks:
             - subscriptions
 
