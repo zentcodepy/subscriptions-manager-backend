@@ -11,9 +11,9 @@ use function response;
 
 class CustomerController extends Controller
 {
-    public function store(Request $request, CreateCustomerAction $createCustomerAction)
+    public function store(CustomerData $customerData, CreateCustomerAction $createCustomerAction)
     {
-        $createCustomerAction(CustomerData::fromRequest($request));
+        $createCustomerAction($customerData);
 
         return response()->json([], Response::HTTP_CREATED);
     }

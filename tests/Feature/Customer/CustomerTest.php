@@ -37,4 +37,20 @@ class CustomerTest extends TestCase
             ->exists());
     }
 
+    /** @test */
+    public function fields_are_validated_when_try_to_create_a_customer()
+    {
+        //$this->withoutExceptionHandling();
+
+        $this->login();
+        $data = [
+            'email' => 'asd',
+        ];
+
+        $response = $this->postJson(route('customers.store'), $data);
+
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
+            ->assertJsonValidationErrors(['business_name', 'email'])
+            ->assertJsonMissingValidationErrors(['document_number', 'contact_name', 'phone_number', 'address', 'comments']);
+    }
 }
