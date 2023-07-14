@@ -23,7 +23,7 @@ class CustomerTest extends TestCase
             'comments' => 'This is a comment',
         ];
 
-        $response = $this->post(route('customers.store'), $data);
+        $response = $this->postJson(route('customers.store'), $data);
 
         $response->assertStatus(Response::HTTP_CREATED);
         $this->assertTrue(Customer::query()
