@@ -26,6 +26,9 @@ class CustomerData extends Data
         return self::from($request->all());
     }
 
+    /**
+     * @return array<string, array<int, string>>
+     */
     public static function rules(): array
     {
         return [
