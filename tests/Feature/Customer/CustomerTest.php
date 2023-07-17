@@ -21,6 +21,17 @@ class CustomerTest extends TestCase
     ];
 
     /** @test */
+    public function index_return_customers()
+    {
+        CustomerFactory::new()->count(20)->create();
+        $this->login();
+
+        $response = $this->getJson(route('customers.index'));
+
+        $response->assertStatus(Response::HTTP_OK);
+    }
+
+    /** @test */
     public function can_create_customer()
     {
         $this->login();

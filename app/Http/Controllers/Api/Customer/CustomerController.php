@@ -9,11 +9,21 @@ use Domain\Customer\DataTransferObjects\CustomerData;
 use Domain\Customer\Models\Customer;
 use Domain\Customer\Resources\CustomerResource;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Symfony\Component\HttpFoundation\Response;
 use function response;
 
 class CustomerController extends Controller
 {
+    public function index(): AnonymousResourceCollection
+    {
+        $customers = Customer::query()
+            ->whereBusinessNameOrDocumentNameOrContactNameLike('hola')
+            ->get();
+
+        return CustomerResource::collection($customers);
+    }
+
     public function store(CustomerData $customerData, CreateCustomerAction $createCustomerAction): JsonResponse
     {
         $createCustomerAction($customerData);

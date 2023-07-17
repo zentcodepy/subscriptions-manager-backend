@@ -5,5 +5,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::resource('customers', CustomerController::class)
-        ->only(['store', 'show', 'update', 'delete']);
+        ->only(['index', 'store', 'show', 'update', 'delete']);
 });
