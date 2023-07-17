@@ -57,19 +57,20 @@ namespace Domain\Customer\Models{
  * @property string $comments
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|Customer newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Customer newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Customer query()
- * @method static \Illuminate\Database\Eloquent\Builder|Customer whereAddress($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Customer whereBusinessName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Customer whereComments($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Customer whereContactName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Customer whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Customer whereDocumentNumber($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Customer whereEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Customer whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Customer wherePhoneNumber($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Customer whereUpdatedAt($value)
+ * @method static \Domain\Customer\Builders\CustomerBuilder|Customer newModelQuery()
+ * @method static \Domain\Customer\Builders\CustomerBuilder|Customer newQuery()
+ * @method static \Domain\Customer\Builders\CustomerBuilder|Customer query()
+ * @method static \Domain\Customer\Builders\CustomerBuilder|Customer whereAddress($value)
+ * @method static \Domain\Customer\Builders\CustomerBuilder|Customer whereBusinessName($value)
+ * @method static \Domain\Customer\Builders\CustomerBuilder|Customer whereComments($value)
+ * @method static \Domain\Customer\Builders\CustomerBuilder|Customer whereContactName($value)
+ * @method static \Domain\Customer\Builders\CustomerBuilder|Customer whereCreatedAt($value)
+ * @method static \Domain\Customer\Builders\CustomerBuilder|Customer whereDocumentNumber($value)
+ * @method static \Domain\Customer\Builders\CustomerBuilder|Customer whereEmail($value)
+ * @method static \Domain\Customer\Builders\CustomerBuilder|Customer whereId($value)
+ * @method static \Domain\Customer\Builders\CustomerBuilder|Customer whereLikeBusinessNameOrDocumentNameOrContactName(string $search)
+ * @method static \Domain\Customer\Builders\CustomerBuilder|Customer wherePhoneNumber($value)
+ * @method static \Domain\Customer\Builders\CustomerBuilder|Customer whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 	class IdeHelperCustomer {}

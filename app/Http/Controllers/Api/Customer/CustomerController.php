@@ -18,7 +18,7 @@ class CustomerController extends Controller
     public function index(): AnonymousResourceCollection
     {
         $customers = Customer::query()
-            ->whereBusinessNameOrDocumentNameOrContactNameLike('hola')
+            ->whereLikeBusinessNameOrDocumentNameOrContactName('')
             ->get();
 
         return CustomerResource::collection($customers);

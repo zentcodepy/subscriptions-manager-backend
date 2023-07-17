@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
  */
 class CustomerBuilder extends Builder
 {
-    public function whereBusinessNameOrDocumentNameOrContactNameLike(string $search): self
+    public function whereLikeBusinessNameOrDocumentNameOrContactName(string $search): self
     {
         return $this->where(fn(CustomerBuilder $q) =>
             $q->where('business_name', 'like', "%$search%")
