@@ -4,6 +4,7 @@ namespace Tests\Feature\Customer;
 
 use Database\Factories\CustomerFactory;
 use Domain\Customer\Models\Customer;
+use Illuminate\Testing\Fluent\AssertableJson;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
@@ -51,6 +52,33 @@ class CustomerTest extends TestCase
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertJsonValidationErrors(['business_name', 'email'])
             ->assertJsonMissingValidationErrors(['document_number', 'contact_name', 'phone_number', 'address', 'comments']);
+    }
+
+    /** @test */
+    public function can_get_customer_data_by_id()
+    {
+        $this->login();
+
+        [$customerA, $customerB] = CustomerFactory::new()->count(2)->create();
+
+        $response = $this->getJson(route('customers.show', ['customer' => $customerA->id]));
+
+        $response->assertStatus(Response::HTTP_OK)
+            ->assertJson(function (AssertableJson $json) use ($customerA) {
+                $json->has('data', function (AssertableJson $json) use ($customerA) {
+                    $json->whereAllType([
+                        'id'=> 'integer',
+                        'business_name' => 'string',
+                        'document_number' => 'string',
+                        'contact_name' => 'string',
+                        'phone_number' => 'string',
+                        'email' => 'string',
+                        'address' => 'string',
+                        'comments' => 'string',
+                    ])
+                    ->where('id', $customerA->id);
+                });
+            });
     }
 
     /** @test */

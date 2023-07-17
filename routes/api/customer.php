@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\Customer\CustomerController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::resource('customers', \App\Http\Controllers\Api\Customer\CustomerController::class)->only(['store', 'update', 'delete']);
+    Route::resource('customers', CustomerController::class)
+        ->only(['store', 'show', 'update', 'delete']);
 });
