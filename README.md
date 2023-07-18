@@ -14,7 +14,7 @@
 * [Laravel](https://laravel.com/)
 * [PHP](https://www.php.net/) - v8.1
 
-### Static Analysis
+### Tests
 * PHPUnit is used to test the code. In order run tests, type: ```php artisan test```
 
 ### Static Analysis
