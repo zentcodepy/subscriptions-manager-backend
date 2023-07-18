@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Customer;
 
 use App\Http\Controllers\Controller;
 use Domain\Customer\Actions\CreateCustomerAction;
+use Domain\Customer\Actions\DeleteCustomerAction;
 use Domain\Customer\Actions\UpdateCustomerAction;
 use Domain\Customer\DataTransferObjects\CustomerData;
 use Domain\Customer\DataTransferObjects\CustomerIndexFilterData;
@@ -41,6 +42,13 @@ class CustomerController extends Controller
     public function update(Customer $customer, CustomerData $customerData, UpdateCustomerAction $updateCustomerAction): JsonResponse
     {
         $updateCustomerAction($customer, $customerData);
+
+        return response()->json([], Response::HTTP_OK);
+    }
+
+    public function destroy(Customer $customer, DeleteCustomerAction $deleteCustomerAction): JsonResponse
+    {
+        $deleteCustomerAction($customer);
 
         return response()->json([], Response::HTTP_OK);
     }
