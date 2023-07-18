@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use Domain\Customer\Actions\CreateCustomerAction;
 use Domain\Customer\Actions\UpdateCustomerAction;
 use Domain\Customer\DataTransferObjects\CustomerData;
+use Domain\Customer\DataTransferObjects\CustomerIndexFilterData;
 use Domain\Customer\Models\Customer;
-use Domain\Customer\Resources\CustomerResource;
+use Domain\Customer\Resources\CustomerIndexResource;
+use Domain\Customer\Resources\CustomerShowResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,13 +17,13 @@ use function response;
 
 class CustomerController extends Controller
 {
-    public function index(): AnonymousResourceCollection
+    public function index(CustomerIndexFilterData $customerIndexFilterData): AnonymousResourceCollection
     {
         $customers = Customer::query()
-            ->whereLikeBusinessNameOrDocumentNameOrContactName('')
-            ->get();
+            ->whereLikeBusinessNameOrDocumentNameOrContactName($customerIndexFilterData->search)
+            ->paginate(20);
 
-        return CustomerResource::collection($customers);
+        return CustomerIndexResource::collection($customers);
     }
 
     public function store(CustomerData $customerData, CreateCustomerAction $createCustomerAction): JsonResponse
@@ -31,9 +33,9 @@ class CustomerController extends Controller
         return response()->json([], Response::HTTP_CREATED);
     }
 
-    public function show(Customer $customer): CustomerResource
+    public function show(Customer $customer): CustomerShowResource
     {
-        return CustomerResource::make($customer);
+        return CustomerShowResource::make($customer);
     }
 
     public function update(Customer $customer, CustomerData $customerData, UpdateCustomerAction $updateCustomerAction): JsonResponse

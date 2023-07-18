@@ -11,7 +11,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  *
  * @mixin Customer
  * */
-class CustomerResource extends JsonResource
+class CustomerShowResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
