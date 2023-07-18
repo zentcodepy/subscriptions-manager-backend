@@ -18,7 +18,7 @@
 * PHPUnit is used to test the code. In order run tests, type: ```php artisan test```
 
 ### Static Analysis
-* PHPStan is used to make static analysis. In order to analyse the project, type: ```./vendor/bin/phpstan analyse```
+* Larastan is used to make static analysis. In order to analyse the project, type: ```./vendor/bin/phpstan analyse```
 
 ### IDE Helper
 * After adding a new Model, or after adding columns or relationships to an exisiting one, run: ```php artisan ide-helper:models -M```
