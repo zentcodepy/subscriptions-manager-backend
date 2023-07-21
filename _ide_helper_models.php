@@ -68,11 +68,37 @@ namespace Domain\Customer\Models{
  * @method static \Domain\Customer\Builders\CustomerBuilder|Customer whereDocumentNumber($value)
  * @method static \Domain\Customer\Builders\CustomerBuilder|Customer whereEmail($value)
  * @method static \Domain\Customer\Builders\CustomerBuilder|Customer whereId($value)
- * @method static \Domain\Customer\Builders\CustomerBuilder|Customer whereLikeBusinessNameOrDocumentNameOrContactName(string $search)
+ * @method static \Domain\Customer\Builders\CustomerBuilder|Customer whereLikeBusinessNameOrDocumentNameOrContactName(?string $search)
  * @method static \Domain\Customer\Builders\CustomerBuilder|Customer wherePhoneNumber($value)
  * @method static \Domain\Customer\Builders\CustomerBuilder|Customer whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 	class IdeHelperCustomer {}
+}
+
+namespace Domain\Service\Models{
+/**
+ * Domain\Service\Models\Service
+ *
+ * @property int $id
+ * @property string $name
+ * @property int $customer_id
+ * @property string $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Domain\Customer\Models\Customer $customer
+ * @method static \Domain\Service\Builders\ServiceBuilder|Service newModelQuery()
+ * @method static \Domain\Service\Builders\ServiceBuilder|Service newQuery()
+ * @method static \Domain\Service\Builders\ServiceBuilder|Service query()
+ * @method static \Domain\Service\Builders\ServiceBuilder|Service whereCreatedAt($value)
+ * @method static \Domain\Service\Builders\ServiceBuilder|Service whereCustomerId($value)
+ * @method static \Domain\Service\Builders\ServiceBuilder|Service whereId($value)
+ * @method static \Domain\Service\Builders\ServiceBuilder|Service whereLikeName(?string $search)
+ * @method static \Domain\Service\Builders\ServiceBuilder|Service whereName($value)
+ * @method static \Domain\Service\Builders\ServiceBuilder|Service whereStatus($value)
+ * @method static \Domain\Service\Builders\ServiceBuilder|Service whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
+	class IdeHelperService {}
 }
 
