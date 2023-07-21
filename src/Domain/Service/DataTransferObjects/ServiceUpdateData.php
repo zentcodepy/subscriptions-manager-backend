@@ -32,7 +32,7 @@ class ServiceUpdateData extends Data
         return [
             'name' => ['required', 'string'],
             'customer_id' => ['required', 'integer'],
-            'status' => [new Enum(ServiceStatus::class)],
+            'status' => ['required', new Enum(ServiceStatus::class)],
         ];
     }
 }
