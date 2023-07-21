@@ -68,7 +68,7 @@ namespace Domain\Customer\Models{
  * @method static \Domain\Customer\Builders\CustomerBuilder|Customer whereDocumentNumber($value)
  * @method static \Domain\Customer\Builders\CustomerBuilder|Customer whereEmail($value)
  * @method static \Domain\Customer\Builders\CustomerBuilder|Customer whereId($value)
- * @method static \Domain\Customer\Builders\CustomerBuilder|Customer whereLikeBusinessNameOrDocumentNameOrContactName(string $search)
+ * @method static \Domain\Customer\Builders\CustomerBuilder|Customer whereLikeBusinessNameOrDocumentNameOrContactName(?string $search)
  * @method static \Domain\Customer\Builders\CustomerBuilder|Customer wherePhoneNumber($value)
  * @method static \Domain\Customer\Builders\CustomerBuilder|Customer whereUpdatedAt($value)
  * @mixin \Eloquent
