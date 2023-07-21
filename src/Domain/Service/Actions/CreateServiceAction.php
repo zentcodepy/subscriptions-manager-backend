@@ -13,7 +13,7 @@ class CreateServiceAction
         return Service::create([
             'name' => $serviceData->name,
             'customer_id' => $serviceData->customerId,
-            'state' => ServiceStatus::Pending,
+            'status' => ServiceStatus::Pending,
         ]);
     }
 }

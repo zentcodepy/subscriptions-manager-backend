@@ -12,7 +12,7 @@ class UpdateServiceAction
         $service->update([
             'name' => $serviceData->name,
             'customer_id' => $serviceData->customerId,
-            'state' => $serviceData->state,
+            'status' => $serviceData->status,
         ]);
 
         return $service;

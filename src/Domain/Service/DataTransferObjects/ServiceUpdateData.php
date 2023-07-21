@@ -16,7 +16,7 @@ class ServiceUpdateData extends Data
         public readonly ?int $id,
         public readonly string $name,
         public readonly int $customerId,
-        public readonly string $state,
+        public readonly string $status,
     ) {}
 
     public static function fromRequest(Request $request): self
@@ -32,7 +32,7 @@ class ServiceUpdateData extends Data
         return [
             'name' => ['required', 'string'],
             'customer_id' => ['required', 'integer'],
-            'state' => [new Enum(ServiceStatus::class)],
+            'status' => [new Enum(ServiceStatus::class)],
         ];
     }
 }
