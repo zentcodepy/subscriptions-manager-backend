@@ -8,7 +8,7 @@ use Illuminate\Testing\Fluent\AssertableJson;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
-class IndexCustomerTest extends TestCase
+class CustomerIndexTest extends TestCase
 {
     private $knownData = [
         ['business_name' => 'Zentcode Inc.', 'document_number' => '123456-1', 'contact_name' => 'Jon Doe'],
