@@ -102,3 +102,42 @@ namespace Domain\Service\Models{
 	class IdeHelperService {}
 }
 
+namespace Domain\Subscription\Models{
+/**
+ * Domain\Subscription\Models\Subscription
+ *
+ * @property int $id
+ * @property int $service_id
+ * @property string $date_from
+ * @property string $date_to
+ * @property int $duration_in_months
+ * @property int $grace_period_in_days
+ * @property int $total_amount
+ * @property string $status
+ * @property string $payment_service_type
+ * @property int $automatic_notification_enabled
+ * @property string|null $subscription_info
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Domain\Service\Models\Service $service
+ * @method static \Domain\Subscription\Builders\SubscriptionBuilder|Subscription newModelQuery()
+ * @method static \Domain\Subscription\Builders\SubscriptionBuilder|Subscription newQuery()
+ * @method static \Domain\Subscription\Builders\SubscriptionBuilder|Subscription query()
+ * @method static \Domain\Subscription\Builders\SubscriptionBuilder|Subscription whereAutomaticNotificationEnabled($value)
+ * @method static \Domain\Subscription\Builders\SubscriptionBuilder|Subscription whereCreatedAt($value)
+ * @method static \Domain\Subscription\Builders\SubscriptionBuilder|Subscription whereDateFrom($value)
+ * @method static \Domain\Subscription\Builders\SubscriptionBuilder|Subscription whereDateTo($value)
+ * @method static \Domain\Subscription\Builders\SubscriptionBuilder|Subscription whereDurationInMonths($value)
+ * @method static \Domain\Subscription\Builders\SubscriptionBuilder|Subscription whereGracePeriodInDays($value)
+ * @method static \Domain\Subscription\Builders\SubscriptionBuilder|Subscription whereId($value)
+ * @method static \Domain\Subscription\Builders\SubscriptionBuilder|Subscription wherePaymentServiceType($value)
+ * @method static \Domain\Subscription\Builders\SubscriptionBuilder|Subscription whereServiceId($value)
+ * @method static \Domain\Subscription\Builders\SubscriptionBuilder|Subscription whereStatus($value)
+ * @method static \Domain\Subscription\Builders\SubscriptionBuilder|Subscription whereSubscriptionInfo($value)
+ * @method static \Domain\Subscription\Builders\SubscriptionBuilder|Subscription whereTotalAmount($value)
+ * @method static \Domain\Subscription\Builders\SubscriptionBuilder|Subscription whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
+	class IdeHelperSubscription {}
+}
+
