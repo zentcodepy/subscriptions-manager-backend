@@ -8,6 +8,6 @@ class CalculateDateToFromDateFromAndDurationInMonthsAction
 {
     public function __invoke(Carbon $dateFrom, int $durationInMonths): Carbon
     {
-        return Carbon::create($dateFrom)->addMonths($durationInMonths)->subDay();
+        return $dateFrom->copy()->addMonths($durationInMonths)->subDay();
     }
 }
