@@ -33,9 +33,15 @@ class SubscriptionStoreTest extends TestCase
         $response->assertStatus(Response::HTTP_CREATED);
         $this->assertTrue(Subscription::query()
             ->where('service_id', $service->id)
+            ->whereDate('date_from', '2023-01-15')
+            ->where('duration_in_months', 6)
+            ->whereDate('date_to','2023-07-14')
             ->where('status', SubscriptionStatus::Pending->value)
-            ->whereDate('date_from', '=', '2023-01-15')
-            ->whereDate('date_to', '2023-07-14')
+            ->where('total_amount', 450000)
+            ->where('grace_period_in_days', 10)
+            ->where('payment_service_type', PaymentServiceTypes::Manual->value)
+            ->where('automatic_notification_enabled', true)
+            ->where('subscription_info', 'Test info')
             ->exists());
     }
 
