@@ -119,6 +119,8 @@ namespace Domain\Subscription\Models{
  * @property string|null $subscription_info
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Domain\Subscription\Models\SubscriptionDetail> $details
+ * @property-read int|null $details_count
  * @property-read \Domain\Service\Models\Service $service
  * @method static \Domain\Subscription\Builders\SubscriptionBuilder|Subscription newModelQuery()
  * @method static \Domain\Subscription\Builders\SubscriptionBuilder|Subscription newQuery()
@@ -139,5 +141,36 @@ namespace Domain\Subscription\Models{
  * @mixin \Eloquent
  */
 	class IdeHelperSubscription {}
+}
+
+namespace Domain\Subscription\Models{
+/**
+ * Domain\Subscription\Models\SubscriptionDetail
+ *
+ * @property int $id
+ * @property int $subscription_id
+ * @property int $amount
+ * @property string $status
+ * @property string $schedule_payment_date
+ * @property string $payed_at
+ * @property string $payment_info
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Domain\Subscription\Models\Subscription $subscription
+ * @method static \Illuminate\Database\Eloquent\Builder|SubscriptionDetail newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|SubscriptionDetail newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|SubscriptionDetail query()
+ * @method static \Illuminate\Database\Eloquent\Builder|SubscriptionDetail whereAmount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SubscriptionDetail whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SubscriptionDetail whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SubscriptionDetail wherePayedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SubscriptionDetail wherePaymentInfo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SubscriptionDetail whereSchedulePaymentDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SubscriptionDetail whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SubscriptionDetail whereSubscriptionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SubscriptionDetail whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
+	class IdeHelperSubscriptionDetail {}
 }
 
