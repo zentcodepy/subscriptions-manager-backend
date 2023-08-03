@@ -33,6 +33,7 @@ services:
             SERVICE_NAME: mysql
         volumes:
             - ./data/mysql:/var/lib/mysql
+            - ./docker/mysql/init:/docker-entrypoint-initdb.d
         ports:
             - 8001:3306
         networks:
@@ -47,7 +48,7 @@ services:
             - 8000:80
         volumes:
             - ./:/var/www
-            - ./docker-compose/nginx:/etc/nginx/conf.d
+            - ./docker/nginx:/etc/nginx/conf.d
         networks:
             - subscriptions
 
