@@ -18,6 +18,11 @@ class Subscription extends Model
 
     protected $guarded = [];
 
+    /**
+     * @var array<string>
+     */
+    protected array $dates = ['date_from'];
+
     public function newEloquentBuilder($query): SubscriptionBuilder
     {
         return new SubscriptionBuilder($query);
@@ -32,7 +37,7 @@ class Subscription extends Model
     }
 
     /**
-     * @return HasMany<SubscriptionDetail, Subscription>
+     * @return HasMany<SubscriptionDetail>
      */
     public function details(): HasMany
     {

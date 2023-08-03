@@ -17,8 +17,8 @@ return new class extends Migration
             $table->bigInteger('amount');
             $table->string('status', 20);
             $table->date('schedule_payment_date');
-            $table->datetime('payed_at');
-            $table->text('payment_info');
+            $table->datetime('payed_at')->nullable();
+            $table->text('payment_info')->nullable();
             $table->timestamps();
         });
     }
