@@ -10,11 +10,18 @@ use Illuminate\Database\Eloquent\Builder;
  */
 class SubscriptionBuilder extends Builder
 {
-    public function whereStatus(?string $search): self
+    public function whereStatus(?string $status): self
     {
-        return $this->when($search,
-            fn(SubscriptionBuilder $q, $search) =>
-                $q->where('status', '=', $search));
+        return $this->when($status,
+            fn(SubscriptionBuilder $q) =>
+                $q->where('status', '=', $status));
+    }
+
+    public function whereServiceId(?int $serviceId): self
+    {
+        return $this->when($serviceId,
+            fn(SubscriptionBuilder $q) =>
+            $q->where('service_id', '=', $serviceId));
     }
 
 }

@@ -152,8 +152,8 @@ namespace Domain\Subscription\Models{
  * @property int $amount
  * @property string $status
  * @property string $schedule_payment_date
- * @property string $payed_at
- * @property string $payment_info
+ * @property string|null $payed_at
+ * @property string|null $payment_info
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Domain\Subscription\Models\Subscription $subscription
