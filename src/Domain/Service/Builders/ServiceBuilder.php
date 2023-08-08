@@ -10,11 +10,24 @@ use Illuminate\Database\Eloquent\Builder;
  */
 class ServiceBuilder extends Builder
 {
-    public function whereLikeName(?string $search): self
+    public function whereLikeName(?string $name): self
     {
-        return $this->when($search,
-            fn(ServiceBuilder $q, $search) =>
-                $q->where('name', 'like', "%$search%"));
+        return $this->when($name,
+            fn(ServiceBuilder $q) =>
+                $q->where('name', 'like', "%$name%"));
     }
 
+    public function whereStatus(?string $status): self
+    {
+        return $this->when($status,
+            fn(ServiceBuilder $q) =>
+            $q->where('status', '=', $status));
+    }
+
+    public function whereCustomerId(?int $customerId): self
+    {
+        return $this->when($customerId,
+            fn(ServiceBuilder $q) =>
+            $q->where('customer_id', '=', $customerId));
+    }
 }

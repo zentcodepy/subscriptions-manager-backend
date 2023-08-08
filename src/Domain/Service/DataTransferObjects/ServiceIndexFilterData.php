@@ -10,7 +10,9 @@ use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 class ServiceIndexFilterData extends Data
 {
     public function __construct(
-        public readonly ?string $search,
+        public readonly ?int $customerId,
+        public readonly ?string $name,
+        public readonly ?string $status,
     ) {}
 
     /**
@@ -19,7 +21,9 @@ class ServiceIndexFilterData extends Data
     public static function rules(): array
     {
         return [
-            'search' => ['nullable', 'sometimes', 'string'],
+            'customer_id' => ['nullable', 'sometimes', 'integer'],
+            'name' => ['nullable', 'sometimes', 'string'],
+            'status' => ['nullable', 'sometimes', 'string'],
         ];
     }
 }

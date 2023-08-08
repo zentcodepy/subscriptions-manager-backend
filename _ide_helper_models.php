@@ -93,7 +93,7 @@ namespace Domain\Service\Models{
  * @method static \Domain\Service\Builders\ServiceBuilder|Service whereCreatedAt($value)
  * @method static \Domain\Service\Builders\ServiceBuilder|Service whereCustomerId($value)
  * @method static \Domain\Service\Builders\ServiceBuilder|Service whereId($value)
- * @method static \Domain\Service\Builders\ServiceBuilder|Service whereLikeName(?string $search)
+ * @method static \Domain\Service\Builders\ServiceBuilder|Service whereLikeName(?string $name)
  * @method static \Domain\Service\Builders\ServiceBuilder|Service whereName($value)
  * @method static \Domain\Service\Builders\ServiceBuilder|Service whereStatus($value)
  * @method static \Domain\Service\Builders\ServiceBuilder|Service whereUpdatedAt($value)
@@ -108,7 +108,7 @@ namespace Domain\Subscription\Models{
  *
  * @property int $id
  * @property int $service_id
- * @property \Carbon\Carbon $date_from
+ * @property string $date_from
  * @property string $date_to
  * @property int $duration_in_months
  * @property int $grace_period_in_days
