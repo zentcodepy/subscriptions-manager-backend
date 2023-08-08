@@ -21,6 +21,9 @@ class SubscriptionController extends Controller
     public function index(SubscriptionIndexFilterData $subscriptionIndexFilterData): AnonymousResourceCollection
     {
         $subscriptions = Subscription::query()
+            ->with([
+                'service:id,name',
+            ])
             ->whereStatus($subscriptionIndexFilterData->status)
             ->whereServiceId($subscriptionIndexFilterData->serviceId)
             ->orderByDesc('id')
