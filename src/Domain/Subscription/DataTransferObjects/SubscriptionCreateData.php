@@ -4,7 +4,6 @@ namespace Domain\Subscription\DataTransferObjects;
 
 use Carbon\Carbon;
 use Domain\Subscription\Helpers\PaymentServiceTypes;
-use Domain\Subscription\Helpers\SubscriptionStatus;
 use Illuminate\Http\Request;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Attributes\Validation\BooleanType;
@@ -33,9 +32,6 @@ class SubscriptionCreateData extends Data
 
         #[Required, IntegerType, GreaterThan('0')]
         public readonly int $durationInMonths,
-
-        #[Required, Enum(SubscriptionStatus::class)]
-        public readonly string $status,
 
         #[Required, IntegerType, GreaterThan('0')]
         public readonly int $totalAmount,

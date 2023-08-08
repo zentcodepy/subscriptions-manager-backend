@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Domain\Subscription\DataTransferObjects\SubscriptionCreateData;
 use Domain\Subscription\DataTransferObjects\SubscriptionDetailCreateData;
 use Domain\Subscription\Helpers\SubscriptionDetailStatus;
+use Domain\Subscription\Helpers\SubscriptionStatus;
 use Domain\Subscription\Models\Subscription;
 use Illuminate\Support\Facades\DB;
 use Throwable;
@@ -48,7 +49,7 @@ class CreateSubscriptionAction
             'date_from' => $subscriptionData->dateFrom,
             'duration_in_months' => $subscriptionData->durationInMonths,
             'date_to' => ($this->calculateDateToFromDateFromAndDurationInMonthsAction)($subscriptionData->dateFrom, $subscriptionData->durationInMonths),
-            'status' => $subscriptionData->status,
+            'status' => SubscriptionStatus::Pending,
             'total_amount' => $subscriptionData->totalAmount,
             'grace_period_in_days' => $subscriptionData->gracePeriodInDays,
             'payment_service_type' => $subscriptionData->paymentServiceType,

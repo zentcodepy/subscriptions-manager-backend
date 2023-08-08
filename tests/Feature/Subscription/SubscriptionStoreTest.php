@@ -24,7 +24,6 @@ class SubscriptionStoreTest extends TestCase
             'service_id' => $service->id,
             'date_from' => '2023-01-15',
             'duration_in_months' => 6,
-            'status' => SubscriptionStatus::Pending,
             'total_amount' => 450000,
             'grace_period_in_days' => 10,
             'payment_service_type' => PaymentServiceTypes::Manual,
@@ -53,11 +52,10 @@ class SubscriptionStoreTest extends TestCase
 
         $this->login();
 
-        $response = $this->postJson(route('subscriptions.store'), [
+        $this->postJson(route('subscriptions.store'), [
             'service_id' => $service->id,
             'date_from' => '2023-01-15',
             'duration_in_months' => 3,
-            'status' => SubscriptionStatus::Pending,
             'total_amount' => 450000,
             'grace_period_in_days' => 10,
             'payment_service_type' => PaymentServiceTypes::Manual,
@@ -88,6 +86,54 @@ class SubscriptionStoreTest extends TestCase
         $this->assertTrue($detail3->amount == 150000);
         $this->assertTrue($detail3->status == SubscriptionDetailStatus::Pending->value);
         $this->assertTrue($detail3->schedule_payment_date == '2023-03-15');
+    }
+
+    /** @test */
+    public function fields_are_validated_when_try_to_create_a_subscription()
+    {
+        $this->login();
+
+        $response = $this->postJson(route('subscriptions.store'), []);
+
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
+            ->assertJsonValidationErrors([
+                'service_id',
+                'date_from',
+                'duration_in_months',
+                'total_amount',
+                'grace_period_in_days',
+                'payment_service_type',
+                'automatic_notification_enabled',
+            ])
+            ->assertJsonMissingValidationErrors([
+                'status',
+                'subscription_info',
+                'date_to',
+            ]);
+    }
+
+    /** @test */
+    public function payment_service_type_must_belong_to_enum_option_when_try_to_create_a_subscription()
+    {
+        $this->login();
+
+        $service = ServiceFactory::new()->create();
+
+        $response = $this->postJson(route('subscriptions.store'), [
+            'service_id' => $service->id,
+            'date_from' => '2023-01-15',
+            'duration_in_months' => 3,
+            'total_amount' => 450000,
+            'grace_period_in_days' => 10,
+            'payment_service_type' => 'Not in Enum',
+            'automatic_notification_enabled' => true,
+            'subscription_info' => 'Test info',
+        ]);
+
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
+            ->assertJsonValidationErrors([
+                'payment_service_type' =>'The selected payment service type is invalid.'
+            ]);
     }
 
 }
