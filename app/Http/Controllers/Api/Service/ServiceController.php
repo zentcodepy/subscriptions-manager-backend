@@ -22,7 +22,12 @@ class ServiceController extends Controller
     public function index(ServiceIndexFilterData $serviceIndexFilterData): AnonymousResourceCollection
     {
         $services = Service::query()
-            ->whereLikeName($serviceIndexFilterData->search)
+            ->with([
+                'customer:id,business_name',
+            ])
+            ->whereCustomerId($serviceIndexFilterData->customerId)
+            ->whereStatus($serviceIndexFilterData->status)
+            ->whereLikeName($serviceIndexFilterData->name)
             ->paginate(20);
 
         return ServiceIndexResource::collection($services);

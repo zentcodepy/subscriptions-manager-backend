@@ -93,12 +93,84 @@ namespace Domain\Service\Models{
  * @method static \Domain\Service\Builders\ServiceBuilder|Service whereCreatedAt($value)
  * @method static \Domain\Service\Builders\ServiceBuilder|Service whereCustomerId($value)
  * @method static \Domain\Service\Builders\ServiceBuilder|Service whereId($value)
- * @method static \Domain\Service\Builders\ServiceBuilder|Service whereLikeName(?string $search)
+ * @method static \Domain\Service\Builders\ServiceBuilder|Service whereLikeName(?string $name)
  * @method static \Domain\Service\Builders\ServiceBuilder|Service whereName($value)
  * @method static \Domain\Service\Builders\ServiceBuilder|Service whereStatus($value)
  * @method static \Domain\Service\Builders\ServiceBuilder|Service whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 	class IdeHelperService {}
+}
+
+namespace Domain\Subscription\Models{
+/**
+ * Domain\Subscription\Models\Subscription
+ *
+ * @property int $id
+ * @property int $service_id
+ * @property string $date_from
+ * @property string $date_to
+ * @property int $duration_in_months
+ * @property int $grace_period_in_days
+ * @property int $total_amount
+ * @property string $status
+ * @property string $payment_service_type
+ * @property int $automatic_notification_enabled
+ * @property string|null $subscription_info
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Domain\Subscription\Models\SubscriptionDetail> $details
+ * @property-read int|null $details_count
+ * @property-read \Domain\Service\Models\Service $service
+ * @method static \Domain\Subscription\Builders\SubscriptionBuilder|Subscription newModelQuery()
+ * @method static \Domain\Subscription\Builders\SubscriptionBuilder|Subscription newQuery()
+ * @method static \Domain\Subscription\Builders\SubscriptionBuilder|Subscription query()
+ * @method static \Domain\Subscription\Builders\SubscriptionBuilder|Subscription whereAutomaticNotificationEnabled($value)
+ * @method static \Domain\Subscription\Builders\SubscriptionBuilder|Subscription whereCreatedAt($value)
+ * @method static \Domain\Subscription\Builders\SubscriptionBuilder|Subscription whereDateFrom($value)
+ * @method static \Domain\Subscription\Builders\SubscriptionBuilder|Subscription whereDateTo($value)
+ * @method static \Domain\Subscription\Builders\SubscriptionBuilder|Subscription whereDurationInMonths($value)
+ * @method static \Domain\Subscription\Builders\SubscriptionBuilder|Subscription whereGracePeriodInDays($value)
+ * @method static \Domain\Subscription\Builders\SubscriptionBuilder|Subscription whereId($value)
+ * @method static \Domain\Subscription\Builders\SubscriptionBuilder|Subscription wherePaymentServiceType($value)
+ * @method static \Domain\Subscription\Builders\SubscriptionBuilder|Subscription whereServiceId($value)
+ * @method static \Domain\Subscription\Builders\SubscriptionBuilder|Subscription whereStatus($value)
+ * @method static \Domain\Subscription\Builders\SubscriptionBuilder|Subscription whereSubscriptionInfo($value)
+ * @method static \Domain\Subscription\Builders\SubscriptionBuilder|Subscription whereTotalAmount($value)
+ * @method static \Domain\Subscription\Builders\SubscriptionBuilder|Subscription whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
+	class IdeHelperSubscription {}
+}
+
+namespace Domain\Subscription\Models{
+/**
+ * Domain\Subscription\Models\SubscriptionDetail
+ *
+ * @property int $id
+ * @property int $subscription_id
+ * @property int $amount
+ * @property string $status
+ * @property string $schedule_payment_date
+ * @property string|null $payed_at
+ * @property string|null $payment_info
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Domain\Subscription\Models\Subscription $subscription
+ * @method static \Illuminate\Database\Eloquent\Builder|SubscriptionDetail newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|SubscriptionDetail newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|SubscriptionDetail query()
+ * @method static \Illuminate\Database\Eloquent\Builder|SubscriptionDetail whereAmount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SubscriptionDetail whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SubscriptionDetail whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SubscriptionDetail wherePayedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SubscriptionDetail wherePaymentInfo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SubscriptionDetail whereSchedulePaymentDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SubscriptionDetail whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SubscriptionDetail whereSubscriptionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SubscriptionDetail whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
+	class IdeHelperSubscriptionDetail {}
 }
 

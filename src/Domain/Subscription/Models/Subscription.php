@@ -1,0 +1,46 @@
+<?php
+
+namespace Domain\Subscription\Models;
+
+use Domain\Service\Models\Service;
+use Domain\Subscription\Builders\SubscriptionBuilder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+/**
+ * @mixin IdeHelperSubscription
+ */
+class Subscription extends Model
+{
+    use HasFactory;
+
+    protected $guarded = [];
+
+    /**
+     * @var array<string>
+     */
+    protected array $dates = ['date_from'];
+
+    public function newEloquentBuilder($query): SubscriptionBuilder
+    {
+        return new SubscriptionBuilder($query);
+    }
+
+    /**
+     * @return BelongsTo<Service, Subscription>
+     */
+    public function service(): BelongsTo
+    {
+        return $this->belongsTo(Service::class);
+    }
+
+    /**
+     * @return HasMany<SubscriptionDetail>
+     */
+    public function details(): HasMany
+    {
+        return $this->hasMany(SubscriptionDetail::class);
+    }
+}

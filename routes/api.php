@@ -23,3 +23,5 @@ require __DIR__ . '/api/auth.php';
 require __DIR__ . '/api/customer.php';
 
 require __DIR__ . '/api/service.php';
+
+require __DIR__ . '/api/subscription.php';
