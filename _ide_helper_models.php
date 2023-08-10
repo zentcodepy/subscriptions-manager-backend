@@ -108,8 +108,8 @@ namespace Domain\Subscription\Models{
  *
  * @property int $id
  * @property int $service_id
- * @property string $date_from
- * @property string $date_to
+ * @property \Illuminate\Support\Carbon $date_from
+ * @property \Illuminate\Support\Carbon $date_to
  * @property int $duration_in_months
  * @property int $grace_period_in_days
  * @property int $total_amount
