@@ -19,10 +19,15 @@ class Subscription extends Model
     protected $guarded = [];
 
     /**
-     * @var array<string>
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
      */
-    protected array $dates = ['date_from'];
-
+    protected $casts = [
+        'date_from' => 'date:Y-m-d',
+        'date_to' => 'date:Y-m-d',
+    ];
+    
     public function newEloquentBuilder($query): SubscriptionBuilder
     {
         return new SubscriptionBuilder($query);
