@@ -2,8 +2,9 @@
 
 namespace App\Services\Actions;
 
-use App\Services\SubscriptionPayment\SubscriptionPaymentContext;
+use App\Services\SubscriptionPayment\SubscriptionPaymentFactory;
 use Domain\Subscription\Actions\UpdateSubscriptionDetailStatusAction;
+use Domain\Subscription\Helpers\PaymentServiceTypes;
 
 class ProcessPaymentAction
 {
@@ -11,9 +12,9 @@ class ProcessPaymentAction
     {
     }
 
-    public function __invoke($paymentService, array $data)
+    public function __invoke(PaymentServiceTypes $paymentService, array $data)
     {
-        $processedSubscriptionPaymentData = SubscriptionPaymentContext::initByPaymentService($paymentService)->processPaymentAttempt($data);
+        $processedSubscriptionPaymentData = SubscriptionPaymentFactory::create($paymentService)->processPaymentAttempt($data);
 
         ($this->updateSubscriptionDetailStatusAction)(
             $processedSubscriptionPaymentData->getSubscriptionDetail(),
