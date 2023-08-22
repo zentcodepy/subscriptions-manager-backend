@@ -8,7 +8,10 @@ use Domain\Subscription\Models\SubscriptionDetail;
 
 class UpdateSubscriptionDetailStatusAction
 {
-    public function __invoke(SubscriptionDetail $subscriptionDetail,  UpdateSubscriptionDetailStatusData $updateSubscriptionDetailStatusData)
+    public function __invoke(
+        SubscriptionDetail $subscriptionDetail,
+        UpdateSubscriptionDetailStatusData $updateSubscriptionDetailStatusData
+    ): void
     {
         //todo: add payed_at if necessary
         $subscriptionDetail->update([

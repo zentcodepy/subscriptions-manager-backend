@@ -17,7 +17,7 @@ class ProcessedSubscriptionPaymentData
 
     public function getSubscriptionDetail(): SubscriptionDetail
     {
-        return SubscriptionDetail::find($this->subscriptionDetailId);
+        return SubscriptionDetail::findOrFail($this->subscriptionDetailId);
     }
 
     public function getUpdateSubscriptionDetailStatusData(): UpdateSubscriptionDetailStatusData

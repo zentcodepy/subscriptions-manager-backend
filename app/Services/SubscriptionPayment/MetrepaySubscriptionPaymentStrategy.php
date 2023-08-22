@@ -8,7 +8,9 @@ use Domain\Subscription\Helpers\SubscriptionDetailStatus;
 
 class MetrepaySubscriptionPaymentStrategy implements SubscriptionPaymentStrategy
 {
-
+    /**
+     * @param array<string, mixed> $data
+     */
     public function processPaymentAttempt(array $data): ProcessedSubscriptionPaymentData
     {
         $subscriptionId = $data['customIdentifier'];
@@ -38,6 +40,9 @@ class MetrepaySubscriptionPaymentStrategy implements SubscriptionPaymentStrategy
         };
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     private function getPaymentInfo(array $data): string
     {
         return "Pagado por Metrepay: " . json_encode($data);

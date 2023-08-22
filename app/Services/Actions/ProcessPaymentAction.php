@@ -12,7 +12,10 @@ class ProcessPaymentAction
     {
     }
 
-    public function __invoke(PaymentServiceTypes $paymentService, array $data)
+    /**
+     * @param array<string, mixed> $data
+     */
+    public function __invoke(PaymentServiceTypes $paymentService, array $data): void
     {
         $processedSubscriptionPaymentData = SubscriptionPaymentFactory::create($paymentService)->processPaymentAttempt($data);
 
