@@ -9,7 +9,7 @@ use Domain\Subscription\Models\SubscriptionDetail;
 class ProcessedSubscriptionPaymentData
 {
     public function __construct(
-        public readonly int $subscriptionDetailId,
+        public readonly SubscriptionDetail $subscriptionDetail,
         public readonly SubscriptionDetailStatus $status,
         public readonly ?string $paymentInfo,
     )
@@ -17,7 +17,7 @@ class ProcessedSubscriptionPaymentData
 
     public function getSubscriptionDetail(): SubscriptionDetail
     {
-        return SubscriptionDetail::findOrFail($this->subscriptionDetailId);
+        return $this->subscriptionDetail;
     }
 
     public function getUpdateSubscriptionDetailStatusData(): UpdateSubscriptionDetailStatusData
