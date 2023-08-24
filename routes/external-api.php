@@ -8,4 +8,10 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-Route::put('/subscription-payments', [\App\Http\Controllers\ExternalApi\SubscriptionPayment\MetrepaySubscriptionPaymentController::class, 'update']);
+Route::put(
+    '/subscription-payments/metrepay-strategy',
+    [
+        \App\Http\Controllers\ExternalApi\SubscriptionPayment\MetrepaySubscriptionPaymentController::class,
+        'update'
+    ]
+)->name('subscription-payments.metrepay-strategy');
