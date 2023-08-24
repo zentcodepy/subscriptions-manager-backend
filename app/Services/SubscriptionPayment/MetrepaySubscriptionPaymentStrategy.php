@@ -17,7 +17,7 @@ class MetrepaySubscriptionPaymentStrategy implements SubscriptionPaymentStrategy
     {
         $subscriptionId = $data['data']['customIdentifier'];
         $periodPayed = $data['data']['subscriptionPayedPeriod'];
-        $amount = round($data['data']['amount']);
+        $amount = intval(round($data['data']['amount']));
         $statusId = $data['data']['statusId'];
 
         $subscriptionDetail = $this->getSubscriptionDetail($subscriptionId, $periodPayed);
