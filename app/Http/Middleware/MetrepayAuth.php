@@ -17,7 +17,7 @@ class MetrepayAuth
     {
         $basicAuthData = $request->header('Authorization');
 
-        if (stripos($basicAuthData, 'basic ') === 0) {
+        if ($basicAuthData !== null && stripos($basicAuthData, 'basic ') === 0) {
             $basicAuthDataExploded = explode(':', base64_decode(substr($basicAuthData, 6)), 2);
             if (count($basicAuthDataExploded) === 2) {
 
