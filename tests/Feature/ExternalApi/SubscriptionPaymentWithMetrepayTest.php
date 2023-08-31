@@ -38,7 +38,7 @@ class SubscriptionPaymentWithMetrepayTest extends TestCase
 
         $processedDTO = (new MetrepaySubscriptionPaymentStrategy())->processPaymentAttempt($requestData);
 
-        $this->assertTrue($processedDTO->subscriptionDetail->id === $subscription2->details[3-1]->id);
+        $this->assertTrue($processedDTO->subscriptionDetail->id === $subscription2->details[3 - 1]->id);
         $this->assertTrue($processedDTO->status == SubscriptionDetailStatus::Payed);
     }
 
@@ -70,7 +70,7 @@ class SubscriptionPaymentWithMetrepayTest extends TestCase
 
         $processedDTO = (new MetrepaySubscriptionPaymentStrategy())->processPaymentAttempt($requestData);
 
-        $this->assertTrue($processedDTO->subscriptionDetail->id === $subscription2->details[3-1]->id);
+        $this->assertTrue($processedDTO->subscriptionDetail->id === $subscription2->details[3 - 1]->id);
         $this->assertTrue($processedDTO->status == SubscriptionDetailStatus::Pending);
     }
 
@@ -102,7 +102,7 @@ class SubscriptionPaymentWithMetrepayTest extends TestCase
 
         $processedDTO = (new MetrepaySubscriptionPaymentStrategy())->processPaymentAttempt($requestData);
 
-        $this->assertTrue($processedDTO->subscriptionDetail->id === $subscription2->details[3-1]->id);
+        $this->assertTrue($processedDTO->subscriptionDetail->id === $subscription2->details[3 - 1]->id);
         $this->assertTrue($processedDTO->status == SubscriptionDetailStatus::Pending);
     }
 
@@ -132,13 +132,17 @@ class SubscriptionPaymentWithMetrepayTest extends TestCase
             ]
         ];
 
-        $response = $this->putJson(route('subscription-payments.metrepay-strategy'), $requestData);
+        config()->set('metrepay.user', 'mp_user');
+        config()->set('metrepay.password', 'mp_password');
+        $headers = ['Authorization' => 'Basic ' . base64_encode( "mp_user:mp_password")];
+
+        $response = $this->putJson(route('subscription-payments.metrepay-strategy'), $requestData, $headers);
 
         $response->assertStatus(200);
 
         $subscription2->refresh();
 
-        $this->assertTrue($subscription2->details[3-1]->status === SubscriptionDetailStatus::Payed->value);
+        $this->assertTrue($subscription2->details[3 - 1]->status === SubscriptionDetailStatus::Payed->value);
 
     }
 
@@ -168,7 +172,11 @@ class SubscriptionPaymentWithMetrepayTest extends TestCase
             ]
         ];
 
-        $response = $this->putJson(route('subscription-payments.metrepay-strategy'), $requestData);
+        config()->set('metrepay.user', 'mp_user');
+        config()->set('metrepay.password', 'mp_password');
+        $headers = ['Authorization' => 'Basic ' . base64_encode( "mp_user:mp_password")];
+
+        $response = $this->putJson(route('subscription-payments.metrepay-strategy'), $requestData, $headers);
 
         $response->assertStatus(200);
 
@@ -176,7 +184,27 @@ class SubscriptionPaymentWithMetrepayTest extends TestCase
 
         $subscription2->refresh();
 
-        $this->assertTrue($subscription2->details[3-1]->status === SubscriptionDetailStatus::Pending->value);
+        $this->assertTrue($subscription2->details[3 - 1]->status === SubscriptionDetailStatus::Pending->value);
 
+    }
+
+    /** @test */
+    public function metrepay_subscription_payment_endpoint_returns_401_if_empty_basic_auth_data_sent()
+    {
+        $response = $this->putJson(route('subscription-payments.metrepay-strategy'), []);
+
+        $response->assertStatus(401);
+    }
+
+    /** @test */
+    public function metrepay_subscription_payment_endpoint_returns_401_if_wrong_basic_auth_data_sent()
+    {
+        config()->set('metrepay.user', 'mp_user');
+        config()->set('metrepay.password', 'mp_password');
+        $headers = ['Authorization' => 'Basic ' . base64_encode( "mp_user1:mp_password2")];
+
+        $response = $this->putJson(route('subscription-payments.metrepay-strategy'), [], $headers);
+
+        $response->assertStatus(401);
     }
 }
