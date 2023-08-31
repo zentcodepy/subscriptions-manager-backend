@@ -143,6 +143,7 @@ class SubscriptionPaymentWithMetrepayTest extends TestCase
         $subscription2->refresh();
 
         $this->assertTrue($subscription2->details[3 - 1]->status === SubscriptionDetailStatus::Payed->value);
+        $this->assertTrue($subscription2->details[3 - 1]->payed_at !== null);
 
     }
 
@@ -185,6 +186,7 @@ class SubscriptionPaymentWithMetrepayTest extends TestCase
         $subscription2->refresh();
 
         $this->assertTrue($subscription2->details[3 - 1]->status === SubscriptionDetailStatus::Pending->value);
+        $this->assertTrue($subscription2->details[3 - 1]->payed_at === null);
 
     }
 

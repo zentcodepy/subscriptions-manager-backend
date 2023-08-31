@@ -4,6 +4,7 @@ namespace Domain\Subscription\Actions;
 
 
 use Domain\Subscription\DataTransferObjects\UpdateSubscriptionDetailStatusData;
+use Domain\Subscription\Helpers\SubscriptionDetailStatus;
 use Domain\Subscription\Models\SubscriptionDetail;
 
 class UpdateSubscriptionDetailStatusAction
@@ -13,11 +14,17 @@ class UpdateSubscriptionDetailStatusAction
         UpdateSubscriptionDetailStatusData $updateSubscriptionDetailStatusData
     ): void
     {
-        //todo: add payed_at if necessary
-        $subscriptionDetail->update([
+        $updateData = [
             'status' => $updateSubscriptionDetailStatusData->status,
             'payment_info' => $updateSubscriptionDetailStatusData->paymentInfo,
-        ]);
+        ];
+
+        if($updateSubscriptionDetailStatusData->status === SubscriptionDetailStatus::Payed
+        && $subscriptionDetail->payed_at === null) {
+            $updateData['payed_at'] = now();
+        }
+
+        $subscriptionDetail->update($updateData);
     }
 
 }
