@@ -11,11 +11,7 @@ class MetrepaySubscriptionPaymentController extends Controller
 {
     public function update(ProcessPaymentAction $processPaymentAction): JsonResponse
     {
-        try {
-            $processPaymentAction(PaymentServiceTypes::Metrepay, request()->all());
-        } catch (\Exception $e) {
-            return response()->json(['message' => 'Error inesperado.'], 500);
-        }
+        $processPaymentAction(PaymentServiceTypes::Metrepay, request()->all());
 
         return response()->json();
     }
