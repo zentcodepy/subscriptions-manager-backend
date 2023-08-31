@@ -6,13 +6,16 @@ use App\Services\Actions\ProcessPaymentAction;
 use Domain\Subscription\Helpers\PaymentServiceTypes;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Log;
 
 class MetrepaySubscriptionPaymentController extends Controller
 {
     public function update(ProcessPaymentAction $processPaymentAction): JsonResponse
     {
-        $processPaymentAction(PaymentServiceTypes::Metrepay, request()->all());
+        try {
+            $processPaymentAction(PaymentServiceTypes::Metrepay, request()->all());
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error inesperado.'], 500);
+        }
 
         return response()->json();
     }

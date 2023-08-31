@@ -5,6 +5,7 @@ namespace App\Services\Actions;
 use App\Services\SubscriptionPayment\SubscriptionPaymentFactory;
 use Domain\Subscription\Actions\UpdateSubscriptionDetailStatusAction;
 use Domain\Subscription\Helpers\PaymentServiceTypes;
+use Exception;
 
 class ProcessPaymentAction
 {
@@ -14,6 +15,7 @@ class ProcessPaymentAction
 
     /**
      * @param array<string, mixed> $data
+     * @throws Exception
      */
     public function __invoke(PaymentServiceTypes $paymentService, array $data): void
     {

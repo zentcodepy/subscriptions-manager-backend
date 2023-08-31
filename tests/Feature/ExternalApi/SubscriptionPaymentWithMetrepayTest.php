@@ -105,4 +105,78 @@ class SubscriptionPaymentWithMetrepayTest extends TestCase
         $this->assertTrue($processedDTO->subscriptionDetail->id === $subscription2->details[3-1]->id);
         $this->assertTrue($processedDTO->status == SubscriptionDetailStatus::Pending);
     }
+
+    /** @test */
+    public function metrepay_subscription_payment_endpoint_calculate_correct_detail_id_and_status_payed()
+    {
+        SubscriptionFactory::new()
+            ->has(SubscriptionDetailFactory::new()->count(10), 'details')
+            ->create(['duration_in_months' => 10]);
+
+        $subscription2 = SubscriptionFactory::new()
+            ->has(SubscriptionDetailFactory::new()->count(6)->sequence(['amount' => 150000]), 'details')
+            ->create(['duration_in_months' => 6, 'total_amount' => 900000]);
+
+        $requestData = [
+            'event' => 'PAYMENT_SUCCESS',
+            'data' => [
+                'txId' => 1000,
+                'payRequestId' => 2000,
+                'currency' => 'PYG',
+                'amount' => 150000.00,
+                'statusId' => 200,
+                'customIdentifier' => $subscription2->id,
+                'label' => 'Pago 3/12',
+                'subscriptionTotalPeriods' => 6,
+                'subscriptionPayedPeriod' => 3,
+            ]
+        ];
+
+        $response = $this->putJson(route('subscription-payments.metrepay-strategy'), $requestData);
+
+        $response->assertStatus(200);
+
+        $subscription2->refresh();
+
+        $this->assertTrue($subscription2->details[3-1]->status === SubscriptionDetailStatus::Payed->value);
+
+    }
+
+    /** @test */
+    public function metrepay_subscription_payment_endpoint_calculate_correct_detail_id_and_status_pending_when_wrong_amount()
+    {
+        SubscriptionFactory::new()
+            ->has(SubscriptionDetailFactory::new()->count(10), 'details')
+            ->create(['duration_in_months' => 10]);
+
+        $subscription2 = SubscriptionFactory::new()
+            ->has(SubscriptionDetailFactory::new()->count(6)->sequence(['amount' => 150000]), 'details')
+            ->create(['duration_in_months' => 6, 'total_amount' => 900000]);
+
+        $requestData = [
+            'event' => 'PAYMENT_SUCCESS',
+            'data' => [
+                'txId' => 1000,
+                'payRequestId' => 2000,
+                'currency' => 'PYG',
+                'amount' => 200000.00,
+                'statusId' => 200,
+                'customIdentifier' => $subscription2->id,
+                'label' => 'Pago 3/12',
+                'subscriptionTotalPeriods' => 6,
+                'subscriptionPayedPeriod' => 3,
+            ]
+        ];
+
+        $response = $this->putJson(route('subscription-payments.metrepay-strategy'), $requestData);
+
+        $response->assertStatus(200);
+
+        $response->assertStatus(200);
+
+        $subscription2->refresh();
+
+        $this->assertTrue($subscription2->details[3-1]->status === SubscriptionDetailStatus::Pending->value);
+
+    }
 }
