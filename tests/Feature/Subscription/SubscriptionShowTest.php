@@ -3,7 +3,9 @@
 namespace Tests\Feature\Subscription;
 
 use Database\Factories\ServiceFactory;
+use Database\Factories\SubscriptionDetailFactory;
 use Database\Factories\SubscriptionFactory;
+use Domain\Subscription\Helpers\SubscriptionDetailStatus;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
@@ -15,13 +17,26 @@ class SubscriptionShowTest extends TestCase
     {
         $this->login();
 
-        $subscription = SubscriptionFactory::new()->create();
+        $schedulePaymentDate = now()->format('Y-m-d');
+        $payedAt = now()->addDays(2)->format('Y-m-d H:i:s');
+
+        $subscription = SubscriptionFactory::new()
+            ->has(
+                SubscriptionDetailFactory::new()->count(10)->sequence([
+                    'amount' => 10000,
+                    'status' => SubscriptionDetailStatus::Pending,
+                    'schedule_payment_date' => $schedulePaymentDate,
+                    'payed_at' => $payedAt,
+                    'payment_info' => 'Test Info',
+                ]),
+                'details')
+            ->create();
 
         $response = $this->getJson(route('subscriptions.show', ['subscription' => $subscription->id]));
 
         $response->assertStatus(Response::HTTP_OK)
-            ->assertJson(function (AssertableJson $json) use ($subscription) {
-                $json->has('data', function (AssertableJson $json) use ($subscription) {
+            ->assertJson(function (AssertableJson $json) use ($subscription, $schedulePaymentDate, $payedAt) {
+                $json->has('data', function (AssertableJson $json) use ($subscription, $schedulePaymentDate, $payedAt) {
                     $json->whereAllType([
                         'id'=> 'integer',
                         'service_id' => 'integer',
@@ -37,6 +52,7 @@ class SubscriptionShowTest extends TestCase
                         'payment_service_type' => 'string',
                         'automatic_notification_enabled' => 'boolean',
                         'subscription_info' => 'string',
+                        'details' => 'array',
                     ])
                     ->where('id', $subscription->id)
                     ->where('service_id', $subscription->service_id)
@@ -51,7 +67,23 @@ class SubscriptionShowTest extends TestCase
                     ->where('status', $subscription->status->value)
                     ->where('payment_service_type', $subscription->payment_service_type->value)
                     ->where('automatic_notification_enabled', $subscription->automatic_notification_enabled)
-                    ->where('subscription_info', $subscription->subscription_info);
+                    ->where('subscription_info', $subscription->subscription_info)
+                    ->has('details', 10)
+                    ->has('details.0', function(AssertableJson $json) use($schedulePaymentDate, $payedAt) {
+                        $json->whereAllType([
+                            'id' => 'integer',
+                            'amount' => 'integer',
+                            'status' => 'string',
+                            'schedule_payment_date' => 'string',
+                            'payed_at' => 'string',
+                            'payment_info' => 'string',
+                        ])
+                        ->where('amount', 10000)
+                        ->where('status', SubscriptionDetailStatus::Pending->value)
+                        ->where('schedule_payment_date', $schedulePaymentDate)
+                        ->where('payed_at', $payedAt)
+                        ->where('payment_info', 'Test Info');
+                    });
                 });
             });
     }

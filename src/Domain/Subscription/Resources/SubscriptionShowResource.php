@@ -35,6 +35,7 @@ class SubscriptionShowResource extends JsonResource
             'payment_service_type' => $this->payment_service_type,
             'automatic_notification_enabled' => $this->automatic_notification_enabled === 1,
             'subscription_info' => $this->subscription_info,
+            'details' => SubscriptionDetailShowResource::collection($this->details),
         ];
     }
 }
