@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Api\Subscription;
 
 use App\Http\Controllers\Controller;
-use Domain\Service\DataTransferObjects\ServiceIndexFilterData;
-use Domain\Service\Models\Service;
-use Domain\Service\Resources\ServiceIndexResource;
 use Domain\Subscription\Actions\CreateSubscriptionAction;
+use Domain\Subscription\Actions\UpdateSubscriptionAction;
 use Domain\Subscription\DataTransferObjects\SubscriptionCreateData;
 use Domain\Subscription\DataTransferObjects\SubscriptionIndexFilterData;
+use Domain\Subscription\DataTransferObjects\SubscriptionUpdateData;
 use Domain\Subscription\Models\Subscription;
 use Domain\Subscription\Resources\SubscriptionIndexResource;
+use Domain\Subscription\Resources\SubscriptionShowResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,6 +40,18 @@ class SubscriptionController extends Controller
         $createSubscriptionAction($subscriptionCreateData);
 
         return response()->json([], Response::HTTP_CREATED);
+    }
+
+    public function show(Subscription $subscription): SubscriptionShowResource
+    {
+        return SubscriptionShowResource::make($subscription);
+    }
+
+    public function update(Subscription $subscription, SubscriptionUpdateData $subscriptionData, UpdateSubscriptionAction $updateSubscriptionAction): JsonResponse
+    {
+        $updateSubscriptionAction($subscription, $subscriptionData);
+
+        return response()->json([], Response::HTTP_OK);
     }
 
 }

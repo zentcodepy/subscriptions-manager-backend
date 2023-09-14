@@ -28,8 +28,6 @@ class ServiceUpdateTest extends TestCase
         $response->assertStatus(Response::HTTP_OK);
         $service->refresh();
 
-        echo $service->status;
-
         $this->assertTrue($service->name === 'Hosting service');
         $this->assertTrue($service->customer_id === $customerB->id);
         $this->assertTrue($service->status === ServiceStatus::Inactive->value);
