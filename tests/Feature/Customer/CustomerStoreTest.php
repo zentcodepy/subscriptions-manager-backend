@@ -38,6 +38,20 @@ class CustomerStoreTest extends TestCase
     }
 
     /** @test */
+    public function can_create_customer_jus_with_required_data()
+    {
+        $this->login();
+        $data = ['business_name' => 'Test'];
+
+        $response = $this->postJson(route('customers.store'), $data);
+
+        $response->assertStatus(Response::HTTP_CREATED);
+        $this->assertTrue(Customer::query()
+            ->where('business_name', 'Test')
+            ->exists());
+    }
+
+    /** @test */
     public function fields_are_validated_when_try_to_create_a_customer()
     {
         $this->login();
