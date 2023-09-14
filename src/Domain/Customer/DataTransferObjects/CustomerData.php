@@ -4,6 +4,7 @@ namespace Domain\Customer\DataTransferObjects;
 
 use Illuminate\Http\Request;
 use Spatie\LaravelData\Attributes\MapInputName;
+use Spatie\LaravelData\Attributes\Validation\Email;
 use Spatie\LaravelData\Attributes\Validation\Nullable;
 use Spatie\LaravelData\Attributes\Validation\Required;
 use Spatie\LaravelData\Attributes\Validation\Sometimes;
@@ -29,7 +30,7 @@ class CustomerData extends Data
         #[Nullable, Sometimes, StringType]
         public readonly ?string $phoneNumber,
 
-        #[Nullable, Sometimes, StringType]
+        #[Nullable, Sometimes, Email]
         public readonly ?string $email,
 
         #[Nullable, Sometimes, StringType]
