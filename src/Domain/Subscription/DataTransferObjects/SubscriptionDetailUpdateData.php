@@ -28,5 +28,4 @@ class SubscriptionDetailUpdateData extends Data
     {
         return self::from($request->all());
     }
-
 }

@@ -18,5 +18,4 @@ class SubscriptionDetailController extends Controller
 
         return response()->json([], Response::HTTP_OK);
     }
-
 }
