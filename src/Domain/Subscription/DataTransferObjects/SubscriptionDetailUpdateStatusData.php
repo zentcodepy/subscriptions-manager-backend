@@ -14,7 +14,7 @@ use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 
 #[MapInputName(SnakeCaseMapper::class)]
-class UpdateSubscriptionDetailStatusData extends Data
+class SubscriptionDetailUpdateStatusData extends Data
 {
     public function __construct(
         #[Required, Enum(SubscriptionDetailStatus::class)]

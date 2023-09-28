@@ -23,7 +23,7 @@ class ProcessPaymentAction
 
         ($this->updateSubscriptionDetailStatusAction)(
             $processedSubscriptionPaymentData->getSubscriptionDetail(),
-            $processedSubscriptionPaymentData->getUpdateSubscriptionDetailStatusData(),
+            $processedSubscriptionPaymentData->getSubscriptionDetailUpdateStatusData(),
         );
     }
 }
