@@ -3,6 +3,9 @@
 namespace Domain\Customer\DataTransferObjects;
 
 use Spatie\LaravelData\Attributes\MapInputName;
+use Spatie\LaravelData\Attributes\Validation\Nullable;
+use Spatie\LaravelData\Attributes\Validation\Sometimes;
+use Spatie\LaravelData\Attributes\Validation\StringType;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 
@@ -10,16 +13,7 @@ use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 class CustomerIndexFilterData extends Data
 {
     public function __construct(
+        #[Nullable, Sometimes, StringType]
         public readonly ?string $search,
     ) {}
-
-    /**
-     * @return array<string, array<int, string>>
-     */
-    public static function rules(): array
-    {
-        return [
-            'search' => ['nullable', 'sometimes', 'string'],
-        ];
-    }
 }

@@ -5,6 +5,7 @@ namespace Domain\Customer\DataTransferObjects;
 use Illuminate\Http\Request;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Attributes\Validation\Email;
+use Spatie\LaravelData\Attributes\Validation\IntegerType;
 use Spatie\LaravelData\Attributes\Validation\Nullable;
 use Spatie\LaravelData\Attributes\Validation\Required;
 use Spatie\LaravelData\Attributes\Validation\Sometimes;
@@ -16,6 +17,7 @@ use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 class CustomerData extends Data
 {
     public function __construct(
+        #[Nullable, Sometimes, IntegerType]
         public readonly ?int $id,
 
         #[Required, StringType]
