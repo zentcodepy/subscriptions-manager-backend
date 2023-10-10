@@ -18,7 +18,7 @@ class SubscriptionShowTest extends TestCase
         $this->login();
 
         $schedulePaymentDate = now()->format('Y-m-d');
-        $payedAt = now()->addDays(2)->format('Y-m-d H:i:s');
+        $payedAt = now()->addDays(2)->setMillisecond(0);
 
         $subscription = SubscriptionFactory::new()
             ->has(
@@ -81,7 +81,7 @@ class SubscriptionShowTest extends TestCase
                         ->where('amount', 10000)
                         ->where('status', SubscriptionDetailStatus::Pending->value)
                         ->where('schedule_payment_date', $schedulePaymentDate)
-                        ->where('payed_at', $payedAt)
+                        ->where('payed_at', $payedAt->jsonSerialize())
                         ->where('payment_info', 'Test Info');
                     });
                 });

@@ -2,7 +2,7 @@
 
 namespace App\Services\SubscriptionPayment\DataTransferObjects;
 
-use Domain\Subscription\DataTransferObjects\UpdateSubscriptionDetailStatusData;
+use Domain\Subscription\DataTransferObjects\SubscriptionDetailUpdateStatusData;
 use Domain\Subscription\Helpers\SubscriptionDetailStatus;
 use Domain\Subscription\Models\SubscriptionDetail;
 
@@ -20,9 +20,9 @@ class ProcessedSubscriptionPaymentData
         return $this->subscriptionDetail;
     }
 
-    public function getUpdateSubscriptionDetailStatusData(): UpdateSubscriptionDetailStatusData
+    public function getSubscriptionDetailUpdateStatusData(): SubscriptionDetailUpdateStatusData
     {
-        return new UpdateSubscriptionDetailStatusData($this->status, $this->paymentInfo);
+        return new SubscriptionDetailUpdateStatusData($this->status, $this->paymentInfo);
     }
 
 }
