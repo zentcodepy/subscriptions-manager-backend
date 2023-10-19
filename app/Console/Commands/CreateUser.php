@@ -76,7 +76,7 @@ class CreateUser extends Command
     {
         try {
             User::create([
-                'nam' => $this->userName,
+                'name' => $this->userName,
                 'email' => $this->email,
                 'password' => Hash::make($this->password),
             ]);
