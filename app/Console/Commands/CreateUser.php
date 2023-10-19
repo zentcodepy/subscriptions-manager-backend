@@ -28,7 +28,7 @@ class CreateUser extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $this->askData();
 
@@ -39,7 +39,7 @@ class CreateUser extends Command
         $this->info('User created successfully!');
     }
 
-    private function askData()
+    private function askData(): void
     {
         $this->userName = $this->ask('Introduce your name');
 
@@ -50,7 +50,7 @@ class CreateUser extends Command
         $this->passwordConfirmation = $this->secret('Confirm your password');
     }
 
-    private function validateData()
+    private function validateData(): void
     {
         $validator = Validator::make([
             'name' => $this->userName,
@@ -72,7 +72,7 @@ class CreateUser extends Command
         }
     }
 
-    private function createUser()
+    private function createUser(): void
     {
         try {
             User::create([
