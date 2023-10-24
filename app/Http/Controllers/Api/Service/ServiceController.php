@@ -8,9 +8,11 @@ use Domain\Service\Actions\DeleteServiceAction;
 use Domain\Service\Actions\UpdateServiceAction;
 use Domain\Service\DataTransferObjects\ServiceCreateData;
 use Domain\Service\DataTransferObjects\ServiceIndexFilterData;
+use Domain\Service\DataTransferObjects\ServiceSearchFilterData;
 use Domain\Service\DataTransferObjects\ServiceUpdateData;
 use Domain\Service\Models\Service;
 use Domain\Service\Resources\ServiceIndexResource;
+use Domain\Service\Resources\ServiceSearchResource;
 use Domain\Service\Resources\ServiceShowResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -31,6 +33,20 @@ class ServiceController extends Controller
             ->paginate(20);
 
         return ServiceIndexResource::collection($services);
+    }
+
+    public function search(ServiceSearchFilterData $serviceSearchFilterData): AnonymousResourceCollection
+    {
+        $services = Service::query()
+            ->with([
+                'customer:id,business_name',
+            ])
+            ->select('id', 'customer_id', 'name')
+            ->whereLikeName($serviceSearchFilterData->search)
+            ->limit(5)
+            ->get();
+
+        return ServiceSearchResource::collection($services);
     }
 
     public function store(ServiceCreateData $serviceData, CreateServiceAction $createServiceAction): JsonResponse
