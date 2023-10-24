@@ -43,7 +43,8 @@ class ServiceController extends Controller
             ])
             ->select('id', 'customer_id', 'name')
             ->whereLikeName($serviceSearchFilterData->search)
-            ->limit(5);
+            ->limit(5)
+            ->get();
 
         return ServiceSearchResource::collection($services);
     }
