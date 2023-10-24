@@ -23,7 +23,7 @@ class CustomerController extends Controller
     public function index(CustomerIndexFilterData $customerIndexFilterData): AnonymousResourceCollection
     {
         $customers = Customer::query()
-            ->whereLikeBusinessNameOrDocumentNameOrContactName($customerIndexFilterData->search)
+            ->whereLikeBusinessNameOrDocumentNumberOrContactName($customerIndexFilterData->search)
             ->paginate(20);
 
         return CustomerIndexResource::collection($customers);
@@ -32,9 +32,10 @@ class CustomerController extends Controller
     public function search(CustomerSearchFilterData $customerSearchFilterData): AnonymousResourceCollection
     {
         $customers = Customer::query()
-            ->select('id', 'business_name', 'document_name')
-            ->whereLikeBusinessNameOrDocumentName($customerSearchFilterData->search)
-            ->limit(5);
+            ->select('id', 'business_name', 'document_number')
+            ->whereLikeBusinessNameOrDocumentNumber($customerSearchFilterData->search)
+            ->limit(5)
+            ->get();
 
         return CustomerSearchResource::collection($customers);
 
