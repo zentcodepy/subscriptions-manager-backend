@@ -29,7 +29,7 @@ class CustomerController extends Controller
         return CustomerIndexResource::collection($customers);
     }
 
-    public function search(CustomerSearchFilterData $customerSearchFilterData)
+    public function search(CustomerSearchFilterData $customerSearchFilterData): AnonymousResourceCollection
     {
         $customers = Customer::query()
             ->select('id', 'business_name', 'document_name')
