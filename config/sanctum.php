@@ -17,7 +17,7 @@ return [
 
     'stateful' => explode(',', env('SANCTUM_STATEFUL_DOMAINS', sprintf(
         '%s%s',
-        'localhost,localhost:3000,127.0.0.1,127.0.0.1:8000,localhost:5173,::1,subscription-manager-zentcode.netlify.app,subscriptions.zentcode.com,subscriptions-api.zentcode.com',
+        'localhost,localhost:3000,127.0.0.1,127.0.0.1:8000,localhost:5173,::1,subscription-manager-zentcode.netlify.app,subscriptions.zentcode.com,subscriptions-api.zentcode.com,zentcode.com,netlify.app',
         Sanctum::currentApplicationUrlWithPort()
     ))),
 
